@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
     "strict": true,
-    "module": "esnext",
-    "target": "ES2017",
+    "module": "commonjs",
+    "target": "es5",
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "jsx": "react"
   },
   "exclude": [ "dist", "./*.d.ts" ]

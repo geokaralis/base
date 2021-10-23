@@ -2,10 +2,11 @@ import path from 'path'
 import webpack from 'webpack'
 import devServer from 'webpack-dev-server'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import createStyledComponentsTransformer from 'typescript-plugin-styled-components'
+
+const styledComponentsTransformer = createStyledComponentsTransformer()
 
 const baseDev = () => {
-  console.log('run from dev')
-
   const compiler = webpack({
     // webpack options
     mode: 'development',
@@ -24,13 +25,15 @@ const baseDev = () => {
       rules: [
         {
           test: /\.tsx?$/,
-          use: require.resolve('ts-loader'),
+          loader: require.resolve('ts-loader'),
+          options: {
+            getCustomTransformers: () => ({ before: [styledComponentsTransformer] })
+          },
           exclude: '/node_modules/'
         }
       ]
     },
     plugins: [
-      // new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
         template: path.join(process.cwd(), 'public', 'index.html')
       })
